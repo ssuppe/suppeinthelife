@@ -7,7 +7,7 @@
 <p style="margin-top: 0; margin-bottom: 24px; font-style: italic; color: var(--text-color); opacity: 0.85;">Here are some things I've been working on recently...</p>
 <div class="projects-grid">
   {{ range $index, $project := .Params.projects }}
-  <div class="project-card{{ if eq $index 0 }} hero-card{{ end }}">
+  <div class="project-card{{ if eq $index 0 }} hero-card{{ end }}{{ if eq $project.image_fit "contain" }} contain-fit-card{{ end }}">
     {{ if $project.video }}
     <div class="project-image">
       <video src="{{ $project.video }}" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>
@@ -55,5 +55,75 @@
   </li>
   {{ end }}
 </ul>
+
+<!-- Lightbox Overlay Container -->
+<div id="lightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <div class="lightbox-content-wrapper"></div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('lightbox');
+    const wrapper = lightbox.querySelector('.lightbox-content-wrapper');
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+
+    // Select all project image containers
+    const projectImages = document.querySelectorAll('.project-image');
+
+    projectImages.forEach(container => {
+      container.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // Find the image or video inside the clicked container
+        const mediaEl = container.querySelector('img, video');
+        if (!mediaEl) return;
+
+        // Clear previous content
+        wrapper.innerHTML = '';
+
+        // Clone the media element
+        const clonedMedia = mediaEl.cloneNode(true);
+        clonedMedia.style.transform = 'none'; // reset transitions
+        clonedMedia.style.transition = 'none';
+
+        // Configure video if applicable
+        if (clonedMedia.tagName === 'VIDEO') {
+          clonedMedia.setAttribute('controls', 'true');
+          clonedMedia.removeAttribute('muted'); // let user hear the video audio
+          clonedMedia.play();
+        }
+
+        // Display lightbox
+        wrapper.appendChild(clonedMedia);
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // lock background scroll
+      });
+    });
+
+    const closeLightbox = () => {
+      // Pause video if playing
+      const video = wrapper.querySelector('video');
+      if (video) video.pause();
+
+      lightbox.style.display = 'none';
+      document.body.style.overflow = ''; // unlock scroll
+      wrapper.innerHTML = '';
+    };
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target === wrapper) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+        closeLightbox();
+      }
+    });
+  });
+</script>
 
 {{ end }}

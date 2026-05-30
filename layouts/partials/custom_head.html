@@ -1,21 +1,6 @@
 <script data-goatcounter="https://suppeinthelife.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 <style>
-  /* Automatically append external link icon to links opening in new tabs */
-  a[target="_blank"]::after {
-    content: " ↗";
-    font-size: 0.8em;
-    font-style: normal;
-    display: inline-block;
-    margin-left: 3px;
-    opacity: 0.75;
-    transition: opacity 0.2s ease;
-  }
-
-  a[target="_blank"]:hover::after {
-    opacity: 1;
-  }
-
   /* Override default theme dotted hr with a clean solid line */
   hr {
     border: 0;
@@ -32,16 +17,17 @@
     margin-bottom: 40px;
   }
 
-  /* Card Styles */
+  /* Default Non-Hero Card Styles (Horizontal layout) */
   .project-card {
     background-color: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 8px;
     overflow: hidden;
     display: flex;
-    flex-direction: column; /* Video on top, content on bottom */
+    flex-direction: row; /* Image on left, text on right by default */
+    align-items: center; /* Center items vertically */
     padding: 16px; /* Inner card padding */
-    gap: 16px;
+    gap: 20px;
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -50,10 +36,10 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
   }
 
-  /* Responsive Images / Video Container */
+  /* Images / Video Container for Default Cards */
   .project-image {
-    width: 100%; /* Take full width of the card */
-    height: 200px; /* Height for normal cards */
+    width: 220px; /* Fixed width on desktop */
+    height: 160px; /* Fixed height on desktop */
     border-radius: 6px;
     overflow: hidden;
     background-color: var(--card-border);
@@ -63,6 +49,7 @@
     flex-shrink: 0;
     transform: translateZ(0);
     will-change: transform;
+    cursor: zoom-in; /* Indicate clickable zoom action */
   }
 
   .project-image img,
@@ -74,17 +61,12 @@
     transition: transform 0.3s ease;
   }
 
-  .project-card:hover .project-image img,
-  .project-card:hover .project-image video {
-    transform: scale(1.02);
-  }
-
   /* Card Content */
   .project-content {
-    padding: 4px;
+    padding: 8px 12px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     flex-grow: 1;
   }
 
@@ -115,15 +97,50 @@
     color: var(--card-border);
   }
 
-  /* Hero Card Styles (First Project Card) */
+  /* Automatically append external link icon to target="_blank" links */
+  a[target="_blank"]::after {
+    content: " ↗";
+    font-size: 0.8em;
+    font-style: normal;
+    display: inline-block;
+    margin-left: 3px;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+  }
+
+  a[target="_blank"]:hover::after {
+    opacity: 1;
+  }
+
+  /* Portrait/Phone Screenshot Card Adjustments (Desktop) */
+  .project-card.contain-fit-card {
+    align-items: stretch; /* Stretch content block vertically to align with taller image */
+  }
+
+  .project-card.contain-fit-card .project-image {
+    width: 180px; /* Narrower for portrait ratio */
+    height: 280px; /* Much taller for portrait ratio */
+    background-color: #0c151d; /* Phone bezel dark background */
+  }
+
+  .project-card.contain-fit-card .project-image img {
+    object-fit: contain; /* Fit the screen inside the container without cropping */
+    padding: 6px; /* Padding creates a clean virtual screen frame */
+  }
+
+  /* Hero Card Styles (First Project Card - Vertical layout) */
   .project-card.hero-card {
+    flex-direction: column; /* Video on top, content on bottom */
     border-width: 2px;
     border-color: var(--card-border-hero);
     gap: 20px;
+    align-items: stretch; /* Content takes full width */
   }
 
   .project-card.hero-card .project-image {
-    height: 340px; /* Taller, prominent video for the hero card */
+    width: 100%; /* Full width */
+    height: 340px; /* Taller video layout */
+    cursor: zoom-in;
   }
 
   .project-card.hero-card .project-content {
@@ -132,36 +149,106 @@
 
   .project-card.hero-card .project-title {
     font-size: 1.5em; /* Larger title */
-    margin-bottom: 6px; /* Tighter space between title and text */
+    margin-bottom: 6px;
   }
 
   .project-card.hero-card .project-summary {
-    font-size: 0.95em; /* Slightly larger text */
+    font-size: 0.95em;
     line-height: 1.6;
-    margin-top: 0; /* Ensure no top margin */
+    margin-top: 0;
     margin-bottom: 20px;
   }
 
-  /* Mobile responsiveness */
+  /* Lightbox Overlay Styles */
+  .lightbox {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(12, 21, 29, 0.95); /* Deep slate overlay opacity */
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out; /* Indicate click-to-close behavior */
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+  }
+
+  .lightbox-close:hover {
+    color: var(--link-color);
+  }
+
+  .lightbox-content-wrapper {
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox img,
+  .lightbox video {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    /* Scale/fade-in animation */
+    animation: lightbox-zoom 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes lightbox-zoom {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* Mobile responsiveness (both card types stack vertically on mobile) */
   @media (max-width: 768px) {
     .project-card,
-    .project-card.hero-card {
-      flex-direction: column;
+    .project-card.hero-card,
+    .project-card.contain-fit-card {
+      flex-direction: column; /* Stack vertically on mobile */
       padding: 12px;
       gap: 16px;
+      align-items: stretch;
     }
     .project-image,
-    .project-card.hero-card .project-image {
+    .project-card.hero-card .project-image,
+    .project-card.contain-fit-card .project-image {
       width: 100%;
       height: 200px;
       min-height: 200px;
     }
     .project-card.hero-card .project-image {
-      height: 240px; /* Slightly shorter on mobile devices to fit viewports */
+      height: 240px;
+    }
+    .project-card.contain-fit-card .project-image {
+      height: 320px; /* Taller phone preview on mobile screen */
+      background-color: #0c151d;
+    }
+    .project-card.contain-fit-card .project-image img {
+      object-fit: contain;
+      padding: 8px;
     }
     .project-content,
     .project-card.hero-card .project-content {
       padding: 8px 4px;
+    }
+    .lightbox img,
+    .lightbox video {
+      max-height: 75vh;
     }
   }
 
