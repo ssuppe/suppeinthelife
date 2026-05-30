@@ -11,13 +11,13 @@ For a long time I'd just click through all the features and doublecheck they wer
 
 Over time, I've kind of rediscovered programming 101, but delegated it down to the agents. I don't know if this works for production code, but for my side projects it's been really great for stability, reliability and speed.
 
-### 1. High-Standard Documentation
+### High-Standard Documentation
 Up-to-date documentation is the foundation. I keep design specs, product requirements, and engineering processes documented under `docs/`. This context acts as the source of truth, and saves me from re-explaining things on every new chat. This is the best quality of life gift I can give myself.
 
-### 2. TDD Baked into the Workflow
+### TDD Baked into the Workflow
 When I was a software engineer, writing tests was standard practice. For side projects, it’s easy to skip them. But in the era of AI-assisted coding, writing tests first is the ultimate guardrail. I instruct the AI to write the tests before drafting the implementation. It keeps the agent honest, and if the agent starts breaking existing features, I know right away.
 
-### 3. Automated Pre-Commit Gates
+### Automated Pre-Commit Gates
 To guarantee code correctness on every commit, I use git hooks (via `.husky/pre-commit` in `goodnumbers`) to run automated checks. Unless a commit is documentation-only, it must pass:
 * **Linting** via `lint-staged`
 * **TypeScript builds** for both frontend and backend
@@ -27,7 +27,7 @@ If any check fails, the commit is aborted. Nothing broken ever reaches the repos
 
 This does slow things down sometimes, but I feel it's worth it for higher confidence!
 
-### 4. Interactive Testing Skills
+### Interactive Testing Skills
 I also have a manual skill called engineer-test. I can run this skill at any time to:
 * Automatically execute test runs and check coverage gaps.
 * Refine test cases and verify edge cases.
