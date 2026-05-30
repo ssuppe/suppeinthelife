@@ -21,6 +21,10 @@
       <h3 class="project-title">{{ $project.title }}</h3>
       <p class="project-summary">{{ $project.summary }}</p>
       <div class="project-links">
+        {{ if $project.site_url }}
+        <a href="{{ $project.site_url }}" class="project-link site-link" target="_blank" rel="noopener">Visit site</a>
+        <span class="link-separator">•</span>
+        {{ end }}
         <a href="{{ $project.blog_url | relURL }}" class="project-link blog-link">Read Dev Log</a>
         <span class="link-separator">•</span>
         <a href="{{ $project.github_url }}" class="project-link github-link" target="_blank" rel="noopener">View on GitHub</a>
