@@ -1,0 +1,11 @@
+---
+name: utils-commit
+description: Conventional commit workflow with doc sync.
+---
+# Utils Commit
+
+1. Evaluate all uncommitted changes.
+2. Thoroughly update `README.md` or `docs/` to document both product and engineering decisions if the changes warrant it.
+3. Generate a commit message following Conventional Commits (type: subject).
+4. Ensure the subject includes "Phase #, Task #:" as per the Development Process.
+5. Commit and push.
