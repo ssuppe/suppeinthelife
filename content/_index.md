@@ -1,11 +1,11 @@
 ---
 title: "Home"
 projects:
-  - title: "AI Dev Assistant"
-    image: "/images/project_ai.png"
-    summary: "An autonomous developer agent that parses software specifications and builds production-grade features using generative LLMs. Created to learn the practical mechanics of prompt chaining and AI agent control loops."
-    blog_url: "/tags/project1/"
-    github_url: "https://github.com/ssuppe/ai-dev-assistant"
+  - title: "GoodNumbers"
+    video: "https://github.com/user-attachments/assets/4ec7fa7b-3743-47a6-aac8-22760a915135"
+    summary: "A smart weekly journal for Type 1 Diabetics. Combines traditional statistics and Gemini 1.5 Pro clinical reasoning to help users reflect on and improve their blood sugar management without judgment."
+    blog_url: "/tags/goodnumbers/"
+    github_url: "https://github.com/ssuppe/goodnumbers"
   - title: "Platform Metrics Catalog"
     image: "/images/project_analytics.png"
     summary: "A lightweight dashboard tracking app release metrics and regression alerts. Built as a practitioner sandbox to experiment with time-series modeling and automate risk-triage heuristics."
