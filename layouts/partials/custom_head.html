@@ -12,7 +12,7 @@
   .projects-grid {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 28px;
     margin-top: 20px;
     margin-bottom: 40px;
   }
@@ -33,7 +33,7 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
   }
 
-  /* Responsive Images */
+  /* Responsive Images / Video Container */
   .project-image {
     width: 220px;
     height: 100%;
@@ -46,15 +46,17 @@
     flex-shrink: 0;
   }
 
-  .project-image img {
+  .project-image img,
+  .project-image video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
   }
 
-  .project-card:hover .project-image img {
-    transform: scale(1.05);
+  .project-card:hover .project-image img,
+  .project-card:hover .project-image video {
+    transform: scale(1.03);
   }
 
   /* Card Content */
@@ -92,14 +94,50 @@
     color: var(--card-border);
   }
 
+  /* Hero Card Styles (First Project Card) */
+  .project-card.hero-card {
+    border-width: 2px;
+    border-color: var(--card-border-hero);
+  }
+
+  .project-card.hero-card .project-image {
+    width: 440px; /* Much larger video width on desktop */
+    min-height: 280px;
+  }
+
+  .project-card.hero-card .project-content {
+    padding: 28px; /* Extra padding for spacious feel */
+  }
+
+  .project-card.hero-card .project-title {
+    font-size: 1.5em; /* Larger title */
+    margin-bottom: 12px;
+  }
+
+  .project-card.hero-card .project-summary {
+    font-size: 0.95em; /* Slightly larger text */
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
   /* Mobile responsiveness */
-  @media (max-width: 600px) {
-    .project-card {
-      flex-direction: column; /* Stack image on top of text on mobile */
+  @media (max-width: 768px) {
+    .project-card,
+    .project-card.hero-card {
+      flex-direction: column; /* Stack vertically */
     }
-    .project-image {
+    .project-image,
+    .project-card.hero-card .project-image {
       width: 100%;
-      height: 180px;
+      height: 200px;
+      min-height: 200px;
+    }
+    .project-card.hero-card .project-image {
+      height: 260px; /* Slightly taller video on tablet/mobile for hero */
+      min-height: 260px;
+    }
+    .project-card.hero-card .project-content {
+      padding: 20px;
     }
   }
 
@@ -107,12 +145,14 @@
   :root {
     --card-bg: #f9f9f9;
     --card-border: #e2e8f0;
+    --card-border-hero: #cbd5e1;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
       --card-bg: #033645;
       --card-border: #044b60;
+      --card-border-hero: #056682;
     }
   }
 </style>

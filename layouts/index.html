@@ -6,24 +6,24 @@
 <h2 id="projects" style="margin-bottom: 6px;">Projects</h2>
 <p style="margin-top: 0; margin-bottom: 24px; font-style: italic; color: var(--text-color); opacity: 0.85;">Here are some things I've been working on recently...</p>
 <div class="projects-grid">
-  {{ range .Params.projects }}
-  <div class="project-card">
-    {{ if .video }}
+  {{ range $index, $project := .Params.projects }}
+  <div class="project-card{{ if eq $index 0 }} hero-card{{ end }}">
+    {{ if $project.video }}
     <div class="project-image">
-      <video src="{{ .video }}" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>
+      <video src="{{ $project.video }}" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>
     </div>
-    {{ else if .image }}
+    {{ else if $project.image }}
     <div class="project-image">
-      <img src="{{ .image | relURL }}" alt="{{ .title }}">
+      <img src="{{ $project.image | relURL }}" alt="{{ $project.title }}">
     </div>
     {{ end }}
     <div class="project-content">
-      <h3 class="project-title">{{ .title }}</h3>
-      <p class="project-summary">{{ .summary }}</p>
+      <h3 class="project-title">{{ $project.title }}</h3>
+      <p class="project-summary">{{ $project.summary }}</p>
       <div class="project-links">
-        <a href="{{ .blog_url | relURL }}" class="project-link blog-link">Read Dev Log</a>
+        <a href="{{ $project.blog_url | relURL }}" class="project-link blog-link">Read Dev Log</a>
         <span class="link-separator">•</span>
-        <a href="{{ .github_url }}" class="project-link github-link" target="_blank" rel="noopener">View on GitHub</a>
+        <a href="{{ $project.github_url }}" class="project-link github-link" target="_blank" rel="noopener">View on GitHub</a>
       </div>
     </div>
   </div>
