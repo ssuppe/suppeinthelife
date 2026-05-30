@@ -1,0 +1,51 @@
+{{ define "main" }}
+{{ .Content }}
+
+{{ if .Params.projects }}
+<hr>
+<h2 id="projects" style="margin-bottom: 6px;">Projects</h2>
+<p style="margin-top: 0; margin-bottom: 24px; font-style: italic; color: var(--text-color); opacity: 0.85;">Here are some things I've been working on recently...</p>
+<div class="projects-grid">
+  {{ range .Params.projects }}
+  <div class="project-card">
+    {{ if .image }}
+    <div class="project-image">
+      <img src="{{ .image | relURL }}" alt="{{ .title }}">
+    </div>
+    {{ end }}
+    <div class="project-content">
+      <h3 class="project-title">{{ .title }}</h3>
+      <p class="project-summary">{{ .summary }}</p>
+      <div class="project-links">
+        <a href="{{ .blog_url | relURL }}" class="project-link blog-link">Read Dev Log</a>
+        <span class="link-separator">•</span>
+        <a href="{{ .github_url }}" class="project-link github-link" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+    </div>
+  </div>
+  {{ end }}
+</div>
+{{ end }}
+<hr>
+
+<h2 id="recent-posts">Recent Posts</h2>
+<ul class="blog-posts">
+  {{ range first 5 (where .Site.RegularPages "Section" "posts") }}
+  <li>
+    <span>
+      <i>
+        <time datetime='{{ .Date.Format "2006-01-02" }}'>
+          {{ .Date.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
+        </time>
+      </i>
+    </span>
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+  </li>
+  {{ else }}
+  <li>
+    No posts yet
+  </li>
+  {{ end }}
+</ul>
+
+{{ end }}

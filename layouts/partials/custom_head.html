@@ -1,1 +1,118 @@
 <script data-goatcounter="https://suppeinthelife.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<style>
+  /* Override default theme dotted hr with a clean solid line */
+  hr {
+    border: 0;
+    border-top: 1px solid var(--card-border);
+    margin: 32px 0;
+  }
+
+  /* Projects Stack Layout */
+  .projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+
+  /* Card Styles */
+  .project-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row; /* Horizontal layout */
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Responsive Images */
+  .project-image {
+    width: 220px;
+    height: 100%;
+    min-height: 160px;
+    overflow: hidden;
+    background-color: var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover .project-image img {
+    transform: scale(1.05);
+  }
+
+  /* Card Content */
+  .project-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+
+  .project-title {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1.25em;
+    color: var(--heading-color);
+  }
+
+  .project-summary {
+    font-size: 0.9em;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    color: var(--text-color);
+  }
+
+  /* Links styling within cards */
+  .project-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 0.9em;
+  }
+
+  .link-separator {
+    color: var(--card-border);
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 600px) {
+    .project-card {
+      flex-direction: column; /* Stack image on top of text on mobile */
+    }
+    .project-image {
+      width: 100%;
+      height: 180px;
+    }
+  }
+
+  /* Light and Dark Mode Color Design Tokens */
+  :root {
+    --card-bg: #f9f9f9;
+    --card-border: #e2e8f0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --card-bg: #033645;
+      --card-border: #044b60;
+    }
+  }
+</style>
