@@ -1,6 +1,21 @@
 <script data-goatcounter="https://suppeinthelife.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 <style>
+  /* Automatically append external link icon to links opening in new tabs */
+  a[target="_blank"]::after {
+    content: " ↗";
+    font-size: 0.8em;
+    font-style: normal;
+    display: inline-block;
+    margin-left: 3px;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+  }
+
+  a[target="_blank"]:hover::after {
+    opacity: 1;
+  }
+
   /* Override default theme dotted hr with a clean solid line */
   hr {
     border: 0;
@@ -24,7 +39,9 @@
     border-radius: 8px;
     overflow: hidden;
     display: flex;
-    flex-direction: row; /* Horizontal layout */
+    flex-direction: column; /* Video on top, content on bottom */
+    padding: 16px; /* Inner card padding */
+    gap: 16px;
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -35,15 +52,17 @@
 
   /* Responsive Images / Video Container */
   .project-image {
-    width: 220px;
-    height: 100%;
-    min-height: 160px;
+    width: 100%; /* Take full width of the card */
+    height: 200px; /* Height for normal cards */
+    border-radius: 6px;
     overflow: hidden;
     background-color: var(--card-border);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    transform: translateZ(0);
+    will-change: transform;
   }
 
   .project-image img,
@@ -51,20 +70,21 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 6px;
     transition: transform 0.3s ease;
   }
 
   .project-card:hover .project-image img,
   .project-card:hover .project-image video {
-    transform: scale(1.03);
+    transform: scale(1.02);
   }
 
   /* Card Content */
   .project-content {
-    padding: 20px;
+    padding: 4px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-grow: 1;
   }
 
@@ -78,6 +98,7 @@
   .project-summary {
     font-size: 0.9em;
     line-height: 1.5;
+    margin-top: 0; /* Remove default browser paragraph top margin */
     margin-bottom: 16px;
     color: var(--text-color);
   }
@@ -98,25 +119,26 @@
   .project-card.hero-card {
     border-width: 2px;
     border-color: var(--card-border-hero);
+    gap: 20px;
   }
 
   .project-card.hero-card .project-image {
-    width: 440px; /* Much larger video width on desktop */
-    min-height: 280px;
+    height: 340px; /* Taller, prominent video for the hero card */
   }
 
   .project-card.hero-card .project-content {
-    padding: 28px; /* Extra padding for spacious feel */
+    padding: 8px;
   }
 
   .project-card.hero-card .project-title {
     font-size: 1.5em; /* Larger title */
-    margin-bottom: 12px;
+    margin-bottom: 6px; /* Tighter space between title and text */
   }
 
   .project-card.hero-card .project-summary {
     font-size: 0.95em; /* Slightly larger text */
     line-height: 1.6;
+    margin-top: 0; /* Ensure no top margin */
     margin-bottom: 20px;
   }
 
@@ -124,7 +146,9 @@
   @media (max-width: 768px) {
     .project-card,
     .project-card.hero-card {
-      flex-direction: column; /* Stack vertically */
+      flex-direction: column;
+      padding: 12px;
+      gap: 16px;
     }
     .project-image,
     .project-card.hero-card .project-image {
@@ -133,11 +157,11 @@
       min-height: 200px;
     }
     .project-card.hero-card .project-image {
-      height: 260px; /* Slightly taller video on tablet/mobile for hero */
-      min-height: 260px;
+      height: 240px; /* Slightly shorter on mobile devices to fit viewports */
     }
+    .project-content,
     .project-card.hero-card .project-content {
-      padding: 20px;
+      padding: 8px 4px;
     }
   }
 

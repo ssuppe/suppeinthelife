@@ -1,7 +1,7 @@
 ---
 title: "Home"
 projects:
-  - title: "GoodNumbers"
+  - title: "Goodnumbers.net"
     video: "https://github.com/user-attachments/assets/4ec7fa7b-3743-47a6-aac8-22760a915135"
     summary: "GoodNumbers is an experimental weekly journal to help type 1 diabetics reflect and improve their blood sugar levels week to week. It uses a mix of good old statistical analysis to help you zero in on troublesome trends and identify patterns. It then leverages AI to help you reflect on strategies to address them. Use it for self-reflection, to find your blind spots in your diabetes management, and to continuously improve."
     site_url: "https://goodnumbers.net"
