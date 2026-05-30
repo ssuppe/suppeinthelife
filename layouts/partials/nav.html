@@ -1,3 +1,7 @@
+{{ $posts := where .Site.RegularPages "Section" "posts" }}
+{{ if $posts }}
+<a href="{{ "posts/" | relURL }}">Blog</a>
+{{ end }}
 {{ range .Site.Menus.main }}
 <a href="{{ .URL }}"{{ if or (hasPrefix .URL "http://") (hasPrefix .URL "https://") }} target="_blank" rel="noopener"{{ end }}>{{ .Name }}</a>
 {{ end }}

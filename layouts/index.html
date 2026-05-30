@@ -51,17 +51,24 @@
 {{ if $posts }}
 <hr>
 <h2 id="recent-posts">Recent Posts</h2>
-<ul class="blog-posts">
+<ul class="blog-posts" style="list-style: none; padding-left: 0;">
   {{ range first 5 $posts }}
-  <li>
-    <span>
+  <li style="margin-bottom: 10px; display: flex; align-items: baseline; flex-wrap: wrap;">
+    <span style="margin-right: 12px; flex-shrink: 0;">
       <i>
         <time datetime='{{ .Date.Format "2006-01-02" }}'>
           {{ .Date.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
         </time>
       </i>
     </span>
-    <a href="{{ .Permalink }}">{{ .Title }}</a>
+    <a href="{{ .Permalink }}" style="text-decoration: none; font-weight: 500;">{{ .Title }}</a>
+    {{ if .Params.tags }}
+    <span style="font-size: 0.85em; opacity: 0.7; margin-left: 8px; display: inline-flex; gap: 6px; flex-wrap: wrap;">
+      {{ range .Params.tags }}
+      <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/" style="text-decoration: none; font-weight: normal;">#{{ . }}</a>
+      {{ end }}
+    </span>
+    {{ end }}
   </li>
   {{ end }}
 </ul>

@@ -1,0 +1,52 @@
+{{ define "main" }}
+<content>
+  {{ if .Data.Singular }}
+  <div style="margin-bottom: 20px;">
+    <h3 style="margin-bottom: 4px; display: inline-block;">Filtering by topic: "{{ .Title }}"</h3>
+    <span style="margin-left: 10px; font-size: 0.9em;">
+      <a href="{{ "posts/" | relURL }}">Clear filter ✕</a>
+    </span>
+  </div>
+  {{ else }}
+  <!-- Topic Tags list at the top of the posts listing -->
+  {{ if .Site.Taxonomies.tags }}
+  <div class="topic-filters" style="margin-bottom: 30px;">
+    <span style="font-weight: bold; margin-right: 8px; font-size: 0.95em; color: var(--text-color); opacity: 0.85;">Filter by topic:</span>
+    <div style="display: inline-flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 6px;">
+      {{ range .Site.Taxonomies.tags }}
+      <a href="{{ .Page.Permalink }}" class="topic-tag-badge" style="background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 4px 12px; font-size: 0.85em; text-decoration: none; transition: all 0.2s ease;">
+        #{{ .Page.Title }} ({{ .Count }})
+      </a>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+  {{ end }}
+
+  <ul class="blog-posts" style="list-style: none; padding-left: 0;">
+    {{ range .Pages }}
+    <li style="margin-bottom: 12px; display: flex; align-items: baseline; flex-wrap: wrap;">
+      <span style="margin-right: 12px; flex-shrink: 0;">
+        <i>
+          <time datetime='{{ .Date.Format "2006-01-02" }}'>
+            {{ .Date.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
+          </time>
+        </i>
+      </span>
+      <a href="{{ .Permalink }}" style="font-weight: 500; font-size: 1.05em; text-decoration: none;">{{ .Title }}</a>
+      {{ if .Params.tags }}
+      <span style="font-size: 0.85em; opacity: 0.7; margin-left: 8px; display: inline-flex; gap: 6px; flex-wrap: wrap;">
+        {{ range .Params.tags }}
+        <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/" style="text-decoration: none; font-weight: normal;">#{{ . }}</a>
+        {{ end }}
+      </span>
+      {{ end }}
+    </li>
+    {{ else }}
+    <li>
+      No posts yet
+    </li>
+    {{ end }}
+  </ul>
+</content>
+{{ end }}
