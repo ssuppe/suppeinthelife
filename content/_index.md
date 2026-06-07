@@ -7,6 +7,8 @@ projects:
     site_url: "https://goodnumbers.net"
     github_url: "https://github.com/ssuppe/goodnumbers"
   - title: "SmartyComics"
+    image: "/images/smarty_hero.png"
+    image_fit: "contain"
     summary: "I love reading digital comics, but viewing full pages on a phone is an annoying cycle of constant zooming and rotating. I built SmartyComics to solve my own problem: it automatically processes comic archives (.cbz) so you can fluidly swipe through panels instead of pages. Behind the scenes, it uses computer vision (YOLO) and Vision-Language Models (Gemini/Gemma) to detect panel bounds and construct a directed graph of the narrative reading flow, automatically optimized via a local AI evaluation judge."
     blog_url: "/tags/smarty/"
   - title: "AI Chess Tutor"
