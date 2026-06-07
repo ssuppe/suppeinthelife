@@ -21,26 +21,18 @@
       <h3 class="project-title">{{ $project.title }}</h3>
       <p class="project-summary">{{ $project.summary }}</p>
       <div class="project-links">
-        {{ $has_site := and $project.site_url (ne $project.site_url "") }}
-        {{ $has_blog := and $project.blog_url (ne $project.blog_url "") }}
-        
-        {{ if $has_site }}
-        <a href="{{ $project.site_url }}" class="project-link site-link" target="_blank" rel="noopener">Visit site</a>
+        {{ $links := slice }}
+        {{ if and $project.site_url (ne $project.site_url "") }}
+          {{ $links = $links | append (printf `<a href="%s" class="project-link site-link" target="_blank" rel="noopener">Visit site</a>` $project.site_url) }}
+        {{ end }}
+        {{ if and $project.blog_url (ne $project.blog_url "") }}
+          {{ $links = $links | append (printf `<a href="%s" class="project-link blog-link">Read blog posts</a>` ($project.blog_url | relURL)) }}
+        {{ end }}
+        {{ if and $project.github_url (ne $project.github_url "") }}
+          {{ $links = $links | append (printf `<a href="%s" class="project-link github-link" target="_blank" rel="noopener">View on GitHub</a>` $project.github_url) }}
         {{ end }}
         
-        {{ if and $has_site $has_blog }}
-        <span class="link-separator">•</span>
-        {{ end }}
-        
-        {{ if $has_blog }}
-        <a href="{{ $project.blog_url | relURL }}" class="project-link blog-link">Read blog posts</a>
-        {{ end }}
-        
-        {{ if or $has_site $has_blog }}
-        <span class="link-separator">•</span>
-        {{ end }}
-        
-        <a href="{{ $project.github_url }}" class="project-link github-link" target="_blank" rel="noopener">View on GitHub</a>
+        {{ delimit $links " <span class=\"link-separator\">•</span> " | safeHTML }}
       </div>
     </div>
   </div>
