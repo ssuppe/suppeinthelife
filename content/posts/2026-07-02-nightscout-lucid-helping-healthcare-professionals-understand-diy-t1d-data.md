@@ -46,6 +46,10 @@ It bridges this communication gap by translating your DIY Nightscout data into a
 
 My hope is that by presenting data in a format they trust, we can ease clinician anxiety and turn "skeptic" providers into supportive allies of the DIY T1D management.
 
+{{< figure src="/images/posts/2026-07-02-nightscout-lucid/3overview.png" caption="The Nightscout Lucid dashboard overview, providing standard Time in Range, average glucose, and GMI statistics." alt="Nightscout Lucid Dashboard Overview" width="600px" >}}
+
+{{< figure src="/images/posts/2026-07-02-nightscout-lucid/9AGP.png" caption="The Ambulatory Glucose Profile (AGP) report, displaying standard percentile curves and glucose stats." alt="Nightscout Lucid AGP Profile" width="600px" >}}
+
 # Try it out
 
 If you want to try it out, you can check out the official demo at [goodnumbers.net/clarity](https://goodnumbers.net/clarity) or view the repository on GitHub at [github.com/ssuppe/nightscout-lucid](https://github.com/ssuppe/nightscout-lucid). 
